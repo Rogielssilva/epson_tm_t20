@@ -1,0 +1,5 @@
+
+*.o
+
+#executável
+cmd/main
