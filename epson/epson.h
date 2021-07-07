@@ -6,5 +6,6 @@
 #define EPSON_H
 
 void PrintDevice(char *text);
+long StartConnection(char *ip);
 
 #endif //EPSON_H

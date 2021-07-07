@@ -12,13 +12,19 @@ extern "C" long FechaPorta(void);
 extern "C" long ImprimeTextoTag(unsigned char *);
 extern "C" long Le_Status(void);
 
+long StartConnection(char *ip)
+{
+    return IniciaPorta((unsigned char *)ip);
+}
+
 void closeConnection()
 {
     long iRetorno;
 
     iRetorno = FechaPorta();
 
-    if (iRetorno);    
+    if (iRetorno)
+        ;
     else
         printf("ERROR AO FECHAR A CONEXAO COM A IMPRESSORA\n");
 }
@@ -57,7 +63,7 @@ long getStatus()
     // }
 }
 
-long connectDevice()
+long checkStatusDevice()
 {
     //Para Impressora Serial
     //iRetorno = IniciaPorta((unsigned char*)"COM1");
@@ -70,13 +76,13 @@ long connectDevice()
         return 0;
     }
 
-    return IniciaPorta((unsigned char *)"192.168.0.16");
+    return 1;
 }
 
 void PrintDevice(char *text)
 {
     long iRetorno;
-    iRetorno = connectDevice();
+    iRetorno = checkStatusDevice();
 
     if (iRetorno == 0)
     {
@@ -84,7 +90,7 @@ void PrintDevice(char *text)
         return;
     }
 
-    strcat(text, "<c>03/12/2013 15:50:22\n</ce></c><gui></gui>");
+    strcat(text, "<c>\n</ce></c><gui></gui>");
 
     iRetorno = ImprimeTextoTag((unsigned char *)text);
 
@@ -93,5 +99,5 @@ void PrintDevice(char *text)
         closeConnection();
     }
     else
-        printf("ERROR AO IMPRIMIR O CUPOM NAO FISCAL.\r\n");
+        printf("ERROR AO IMPRIMIR.\r\n");
 }
